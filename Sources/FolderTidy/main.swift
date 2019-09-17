@@ -86,4 +86,11 @@ isDirectory: true)
 
 try moveFiles(at: allFileURLs, with: ["app"], to: applicationsURL)
 
-try deleteFiles(at: allFileURLs, with: ["zip", "dmg", "xip", "vcs", "ics"])
+try deleteFiles(at: allFileURLs, with: [
+    "dmg",
+    "ics",
+    "pkg",
+    "vcs",
+    "xip",
+    "zip",
+])
