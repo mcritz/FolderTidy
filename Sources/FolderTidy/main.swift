@@ -81,10 +81,15 @@ let applicationsURL = URL(fileURLWithPath: "/Applications", isDirectory: true)
 try moveFiles(at: allFileURLs, with: ["app"], to: applicationsURL)
 
 try deleteFiles(at: allFileURLs, with: [
-    "dmg",
-    "ics",
-    "pkg",
-    "vcs",
-    "xip",
-    "zip",
+    "download", // aborted downloads
+    "dmg", // disk images, typically from app installs
+    "ics", // iCal calendar invites
+    "pkg", // macOS app installer packages
+    "vcs", // not-iCal calendar invites
+    "xip", // fancy compressed files, like Xcode betas
+    "zip", // standard compressed files
+    "tar.gz", // ye olde compression format
+    "tar", // ye olde compression, part the second
+    "msi", // Windows installers!?!?!???,
+    "exe", // Windows executables
 ])
