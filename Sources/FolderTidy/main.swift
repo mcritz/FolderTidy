@@ -56,6 +56,7 @@ func moveFiles(at urls: [URL], with pathExtensions: [String], to directory: URL)
             try FileManager.default.moveItem(at: fileURL,
                                              to: destinationURL)
         } catch {
+            print(error.localizedDescription)
             throw TidyError.failedToMoveFile
         }
     }
@@ -78,18 +79,26 @@ func deleteFiles(at urls: [URL], with pathExtensions: [String]) throws {
 // TODO: Configuration points
 let applicationsURL = URL(fileURLWithPath: "/Applications", isDirectory: true)
 
-try moveFiles(at: allFileURLs, with: ["app"], to: applicationsURL)
+do {
+    try moveFiles(at: allFileURLs, with: ["app"], to: applicationsURL)
+} catch {
+    print(error.localizedDescription)
+}
 
-try deleteFiles(at: allFileURLs, with: [
-    "download", // aborted downloads
-    "dmg", // disk images, typically from app installs
-    "ics", // iCal calendar invites
-    "pkg", // macOS app installer packages
-    "vcs", // not-iCal calendar invites
-    "xip", // fancy compressed files, like Xcode betas
-    "zip", // standard compressed files
-    "tar.gz", // ye olde compression format
-    "tar", // ye olde compression, part the second
-    "msi", // Windows installers!?!?!???,
-    "exe", // Windows executables
-])
+do {
+    try deleteFiles(at: allFileURLs, with: [
+        "download", // aborted downloads
+        "dmg", // disk images, typically from app installs
+        "ics", // iCal calendar invites
+        "pkg", // macOS app installer packages
+        "vcs", // not-iCal calendar invites
+        "xip", // fancy compressed files, like Xcode betas
+        "zip", // standard compressed files
+        "tar.gz", // ye olde compression format
+        "tar", // ye olde compression, part the second
+        "msi", // Windows installers!?!?!???,
+        "exe", // Windows executables
+    ])
+} catch {
+    print(error.localizedDescription)
+}
